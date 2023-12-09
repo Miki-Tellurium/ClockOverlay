@@ -9,7 +9,7 @@
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/Miki-Tellurium/ClockOverlay"
 	},
 	"license": "MIT License",
 	"icon": "assets/clockoverlay/icon.png",
