@@ -16,7 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.mikitellurium.ClockOverlay"
+          "com.mikitellurium.clockoverlay.ClockOverlay"
+		],
+		"client": [
+			"com.mikitellurium.clockoverlay.Client"
 		]
 	},
 	"mixins": [
