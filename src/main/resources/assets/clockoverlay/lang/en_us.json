@@ -1,0 +1,6 @@
+{
+  "option.clockoverlay.clockposition": "Clock Position",
+  "option.clockoverlay.clockposition.tooltip": "The position of the clock overlay on screen",
+  "option.clockoverlay.show_clock_when": "Show Clock When",
+  "option.clockoverlay.show_clock_when.held_in_hand": "Held in Hand",
+  "option.clockoverlay.show_clock_when.in_inventory": "In Player Inventory"}

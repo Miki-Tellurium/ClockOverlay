@@ -9,7 +9,7 @@ public class Client implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ClockOverlay.LOGGER.info("Starting client");
+        ClockOverlay.logger().info("Starting client");
         HudRenderCallback.EVENT.register(OverlayRenderer::renderOverlay);
         Configuration.registerConfig();
     }

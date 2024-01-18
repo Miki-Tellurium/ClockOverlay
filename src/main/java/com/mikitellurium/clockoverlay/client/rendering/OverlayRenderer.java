@@ -1,14 +1,12 @@
 package com.mikitellurium.clockoverlay.client.rendering;
 
-import com.mikitellurium.clockoverlay.ClockOverlay;
 import com.mikitellurium.clockoverlay.config.Configuration;
 import com.mikitellurium.clockoverlay.util.ClientDataHelper;
-import com.mikitellurium.clockoverlay.util.ScreenPos;
+import com.mikitellurium.clockoverlay.util.OverlayPos;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public class OverlayRenderer {
@@ -16,8 +14,8 @@ public class OverlayRenderer {
     public static void renderOverlay(DrawContext context, float deltaTick) {
         if (ClientDataHelper.isHudHidden())
             return;
-        ScreenPos pos = ScreenPos.getScreenPosConfig();
-        if (ClientDataHelper.isDebugScreenOpen() && (pos == ScreenPos.TOP_LEFT || pos == ScreenPos.TOP_RIGHT))
+        OverlayPos pos = OverlayPos.getScreenPosConfig();
+        if (ClientDataHelper.isDebugScreenOpen() && (pos == OverlayPos.TOP_LEFT || pos == OverlayPos.TOP_RIGHT))
             return;
 
         if (shouldShowOverlay()) {

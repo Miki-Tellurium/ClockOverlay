@@ -3,7 +3,7 @@
 	"id": "clockoverlay",
 	"version": "${version}",
 	"name": "Clock Overlay",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Use clocks to show the time in-game!",
 	"authors": [
 		"Miki Tellurium"
 	],
@@ -20,6 +20,9 @@
 		],
 		"client": [
 			"com.mikitellurium.clockoverlay.Client"
+		],
+		"modmenu": [
+			"com.mikitellurium.clockoverlay.config.modmenu.ModMenuImpl"
 		]
 	},
 	"mixins": [
