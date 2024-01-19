@@ -12,7 +12,7 @@
 		"sources": "https://github.com/Miki-Tellurium/ClockOverlay"
 	},
 	"license": "MIT License",
-	"icon": "assets/clockoverlay/icon.png",
+	"icon": "assets/clockoverlay/clockoverlay_icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
