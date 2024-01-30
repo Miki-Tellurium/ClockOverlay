@@ -33,6 +33,7 @@
 		"minecraft": "~1.20",
 		"java": ">=17",
 		"fabric-api": "*",
+		"fabric-key-binding-api-v1": "*",
 		"telluriumforge": ">=1.0.0"
 	},
 	"suggests": {

@@ -12,6 +12,7 @@ public class Configuration {
 
     public static EnumConfigEntry<OverlayPos> CLOCK_POSITION;
     public static ConfigEntry<Boolean> CLOCK_HOLDING_REQUIRED;
+    public static ConfigEntry<Boolean> SHOW_ITEM_FRAME_CLOCK;
     public static ConfigEntry<Boolean> BIG_CLOCK;
 
     public static void registerConfig() {
@@ -25,6 +26,10 @@ public class Configuration {
                 .define("clockHoldingRequired", true)
                 .comment("If true holding a clock item is required to show the overlay,")
                 .comment("if false just having a clock in the player inventory is required");
+
+        SHOW_ITEM_FRAME_CLOCK = CLIENT_CONFIG.entryBuilder()
+                .define("showItemFrameClock", true)
+                .comment("If true a clock placed in a item frame displays the time");
 
         BIG_CLOCK = CLIENT_CONFIG.entryBuilder()
                 .define("enableBigClock", false)

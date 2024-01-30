@@ -12,12 +12,13 @@ base {
 
 repositories {
 	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+	}
+	maven {
 		// ModMenu
 		name = "terraformersmc maven"
 		url = "https://maven.terraformersmc.com"
-	}
-	flatDir {
-		dirs 'libs'
 	}
 }
 
@@ -30,7 +31,7 @@ dependencies {
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
-	modImplementation "libs:telluriumforge-1.0.0"
+	modImplementation  'maven.modrinth:telluriumforge:1.0.0'
 }
 
 processResources {

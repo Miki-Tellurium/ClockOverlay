@@ -12,9 +12,11 @@ import java.util.Locale;
 public class ModOptions {
 
     public static final SimpleOption<OverlayPos> CLOCK_POSITION = new EnumConfigOption<>(
-            ClockOverlay.getModIdentifier(Configuration.CLOCK_POSITION.getKey().toLowerCase(Locale.ROOT)), Configuration.CLOCK_POSITION).asOption();
+            ClockOverlay.getModIdentifier("clock_position"), Configuration.CLOCK_POSITION).asOption();
     public static final SimpleOption<Boolean> SHOW_CLOCK_WHEN = new BooleanConfigOption(
             ClockOverlay.getModIdentifier("show_clock_when"),
             "held_in_hand", "in_inventory", Configuration.CLOCK_HOLDING_REQUIRED).asOption();
+    public static final SimpleOption<Boolean> SHOW_ITEM_FRAME_CLOCK = new BooleanConfigOption(
+            ClockOverlay.getModIdentifier("show_item_frame_clock"), Configuration.SHOW_ITEM_FRAME_CLOCK).asOption();
 
 }

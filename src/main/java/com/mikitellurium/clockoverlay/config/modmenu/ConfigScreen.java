@@ -25,6 +25,7 @@ public class ConfigScreen extends GameOptionsScreen {
         this.list = new OptionListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
         this.list.addSingleOptionEntry(ModOptions.CLOCK_POSITION);
         this.list.addSingleOptionEntry(ModOptions.SHOW_CLOCK_WHEN);
+        this.list.addSingleOptionEntry(ModOptions.SHOW_ITEM_FRAME_CLOCK);
 
         this.addSelectableChild(this.list);
         this.addDrawableChild(
