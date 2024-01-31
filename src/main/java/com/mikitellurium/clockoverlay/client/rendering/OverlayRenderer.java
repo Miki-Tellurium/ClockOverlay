@@ -24,7 +24,7 @@ public class OverlayRenderer {
         if (shouldShowOverlay()) {
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
             String text = ClientDataHelper.getTimeString();
-            int textColor = ClockColor.DAY_CYCLE.getColor();
+            int textColor = Configuration.CLOCK_COLOR.getValue().getColor();
             int width = context.getScaledWindowWidth();
             int height = context.getScaledWindowHeight();
             int textWidth = textRenderer.getWidth(text);

@@ -26,6 +26,7 @@ public class ConfigScreen extends GameOptionsScreen {
         this.list.addSingleOptionEntry(ModOptions.CLOCK_POSITION);
         this.list.addSingleOptionEntry(ModOptions.SHOW_CLOCK_WHEN);
         this.list.addSingleOptionEntry(ModOptions.SHOW_ITEM_FRAME_CLOCK);
+        this.list.addSingleOptionEntry(ModOptions.CLOCK_COLOR);
 
         this.addSelectableChild(this.list);
         this.addDrawableChild(
