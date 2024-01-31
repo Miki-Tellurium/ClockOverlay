@@ -8,8 +8,6 @@ import com.mikitellurium.telluriumforge.option.BooleanConfigOption;
 import com.mikitellurium.telluriumforge.option.EnumConfigOption;
 import net.minecraft.client.option.SimpleOption;
 
-import java.util.Locale;
-
 public class ModOptions {
 
     public static final SimpleOption<OverlayPos> CLOCK_POSITION = new EnumConfigOption<>(
