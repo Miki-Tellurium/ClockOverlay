@@ -15,6 +15,7 @@ public class Configuration {
     public static ConfigEntry<Boolean> CLOCK_HOLDING_REQUIRED;
     public static ConfigEntry<Boolean> SHOW_ITEM_FRAME_CLOCK;
     public static EnumConfigEntry<ClockColor> CLOCK_COLOR;
+    public static EnumConfigEntry<ClockColor> ITEM_FRAME_CLOCK_COLOR;
     public static ConfigEntry<Boolean> BIG_CLOCK;
 
     public static void registerConfig() {
@@ -36,6 +37,10 @@ public class Configuration {
         CLOCK_COLOR = CLIENT_CONFIG.entryBuilder()
                 .define("clockColor", ClockColor.WHITE)
                 .comment("The color of the clock overlay");
+
+        ITEM_FRAME_CLOCK_COLOR = CLIENT_CONFIG.entryBuilder()
+                .define("itemFrameClockColor", ClockColor.WHITE)
+                .comment("The color of the clock overlay in item frame");
 
         BIG_CLOCK = CLIENT_CONFIG.entryBuilder()
                 .define("enableBigClock", false)

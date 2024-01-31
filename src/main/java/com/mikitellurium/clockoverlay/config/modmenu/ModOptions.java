@@ -21,4 +21,6 @@ public class ModOptions {
             ClockOverlay.getModIdentifier("show_item_frame_clock"), Configuration.SHOW_ITEM_FRAME_CLOCK).asOption();
     public static final SimpleOption<ClockColor> CLOCK_COLOR = new EnumConfigOption<>(
             ClockOverlay.getModIdentifier("clock_color"), Configuration.CLOCK_COLOR).asOption();
+    public static final SimpleOption<ClockColor> ITEM_FRAME_CLOCK_COLOR = new EnumConfigOption<>(
+            ClockOverlay.getModIdentifier("item_frame_clock_color"), Configuration.ITEM_FRAME_CLOCK_COLOR).asOption();
 }

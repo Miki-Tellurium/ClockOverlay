@@ -52,7 +52,9 @@ public class ItemFrameEntityRendererMixin {
         if (hitResult.getType() == HitResult.Type.BLOCK && distance > 400.0) {
             return; // Don't render if a block is obstructing the view from too far
         }
+
         String text = ClientDataHelper.getTimeString();
+        int textColor = Configuration.ITEM_FRAME_CLOCK_COLOR.getValue().getColor();
         boolean isSneaky = !itemFrame.isSneaky();
         float xPos = (float)-textRenderer.getWidth(text) / 2;
         matrixStack.push();
@@ -65,10 +67,10 @@ public class ItemFrameEntityRendererMixin {
         float opacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25f);
         int finalOpacity = (int)(opacity * 255.0f) << 24;
 
-        textRenderer.draw(text, xPos, yPos, 0x20FFFFFF, false, matrix4f, vertexConsumers,
+        textRenderer.draw(text, xPos, yPos, textColor, false, matrix4f, vertexConsumers,
                 isSneaky ? TextRenderer.TextLayerType.SEE_THROUGH : TextRenderer.TextLayerType.NORMAL, finalOpacity, light);
         if (isSneaky) {
-            textRenderer.draw(text, xPos, yPos, -1, false, matrix4f, vertexConsumers,
+            textRenderer.draw(text, xPos, yPos, textColor, false, matrix4f, vertexConsumers,
                     TextRenderer.TextLayerType.NORMAL, 0, light);
         }
 

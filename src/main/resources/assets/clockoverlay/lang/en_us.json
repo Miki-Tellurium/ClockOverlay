@@ -7,5 +7,7 @@
   "option.clockoverlay.show_item_frame_clock": "Show Item Frame Clock",
   "option.clockoverlay.show_item_frame_clock.true": "True",
   "option.clockoverlay.show_item_frame_clock.false": "False",
-  "option.clockoverlay.clock_color": "Clock Color"
+  "option.clockoverlay.clock_color": "Clock Color",
+  "option.clockoverlay.item_frame_clock_color": "Clock Color in Item Frame"
+
 }
