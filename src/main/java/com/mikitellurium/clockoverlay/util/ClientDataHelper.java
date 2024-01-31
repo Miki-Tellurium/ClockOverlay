@@ -44,15 +44,15 @@ public class ClientDataHelper {
         return world.getTimeOfDay() % 24000;
     }
 
-    public static int getAdjustedTimeOfDay() {
-        ClientWorld world = MinecraftClient.getInstance().world;
-        if (world == null) return -1;
-        return (int)(24000 + getRawTimeOfDay() + 6000) % 24000;
+    public static long getAdjustedTimeOfDay() {
+        final long rawTime = getRawTimeOfDay();
+        if (rawTime == -1) return -1;
+        return (int)(30000 + rawTime) % 24000;
     }
 
     public static String getTimeString() {
-        int time = getAdjustedTimeOfDay();
-        int seconds = time / 20;
+        long time = getAdjustedTimeOfDay();
+        int seconds = (int)time / 20;
         int clockHours = seconds / 50;
         int clockMinutes = (int) Math.floor((time % 1000) / 16.66D);
         return String.format("%02d:%02d", clockHours, clockMinutes == 60 ? 59 : clockMinutes);

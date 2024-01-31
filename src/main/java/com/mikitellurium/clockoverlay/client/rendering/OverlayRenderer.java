@@ -1,12 +1,15 @@
 package com.mikitellurium.clockoverlay.client.rendering;
 
+import com.mikitellurium.clockoverlay.ClockOverlay;
 import com.mikitellurium.clockoverlay.config.Configuration;
 import com.mikitellurium.clockoverlay.util.ClientDataHelper;
+import com.mikitellurium.clockoverlay.util.ClockColor;
 import com.mikitellurium.clockoverlay.util.OverlayPos;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public class OverlayRenderer {
@@ -21,6 +24,7 @@ public class OverlayRenderer {
         if (shouldShowOverlay()) {
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
             String text = ClientDataHelper.getTimeString();
+            int textColor = ClockColor.DAY_CYCLE.getColor();
             int width = context.getScaledWindowWidth();
             int height = context.getScaledWindowHeight();
             int textWidth = textRenderer.getWidth(text);
@@ -36,7 +40,7 @@ public class OverlayRenderer {
                 height /= scale;
                 xPos = width / 2 - textWidth / 2;
                 yPos = height / 2 - textRenderer.fontHeight / 2;
-                context.drawTextWithShadow(textRenderer, text, xPos, yPos, Formatting.WHITE.getColorValue());
+                context.drawTextWithShadow(textRenderer, text, xPos, yPos, textColor);
                 matrixStack.pop();
             } else {
                 switch (pos) {
@@ -61,7 +65,7 @@ public class OverlayRenderer {
                         yPos = height - 10;
                         break;
                 }
-                context.drawTextWithShadow(textRenderer, text, xPos, yPos, Formatting.WHITE.getColorValue());
+                context.drawTextWithShadow(textRenderer, text, xPos, yPos, textColor);
             }
         }
     }
