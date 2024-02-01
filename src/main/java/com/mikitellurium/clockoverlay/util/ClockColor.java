@@ -92,7 +92,7 @@ public enum ClockColor {
     private static int getRainbowColor(long time) {
         int value = (int)time % 1000;
         int offset = (int) time % 1024;
-        float hue = (float) (value + offset) / 512 * 1000;
+        float hue = (float) (value + offset) / 256 * 1000;
         return Color.getHSBColor(hue / 1000, 0.7F, 0.8F).getRGB();
     }
 
