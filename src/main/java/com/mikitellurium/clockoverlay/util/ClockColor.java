@@ -18,7 +18,11 @@ public enum ClockColor {
     }
 
     public int getColor() {
-        return colorGetter.apply(ClientDataHelper.getAdjustedTimeOfDay());
+        return this.getColor(0);
+    }
+
+    public int getColor(long offset) {
+        return colorGetter.apply(ClientDataHelper.getAdjustedTimeOfDay() + offset);
     }
 
     private static int mapTimeToColor(long time) {
@@ -87,8 +91,9 @@ public enum ClockColor {
 
     private static int getRainbowColor(long time) {
         int value = (int)time % 1000;
-        float hue = (float) value / 200 * 360;
-        return Color.getHSBColor(hue / 360, 0.7F, 0.9F).getRGB();
+        int offset = (int) time % 1024;
+        float hue = (float) (value + offset) / 512 * 1000;
+        return Color.getHSBColor(hue / 1000, 0.7F, 0.8F).getRGB();
     }
 
 }

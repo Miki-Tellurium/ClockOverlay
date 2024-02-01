@@ -12,6 +12,7 @@ import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.item.Items;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
@@ -40,7 +41,7 @@ public class ItemFrameEntityRendererMixin {
     private void renderTimeLabel(ItemFrameEntity itemFrame, MatrixStack matrixStack, VertexConsumerProvider vertexConsumers,
                                  EntityRenderDispatcher entityRenderer, TextRenderer textRenderer, int light, float deltaTick) {
         double distance = entityRenderer.getSquaredDistanceToCamera(itemFrame);
-        if (distance > 4096.0 || !Configuration.SHOW_ITEM_FRAME_CLOCK.getValue()) {
+        if (distance > 4096.0F || !Configuration.SHOW_ITEM_FRAME_CLOCK.getValue()) {
             return;
         }
         float yPos = itemFrame.getNameLabelHeight() - 0.2F;
@@ -49,12 +50,14 @@ public class ItemFrameEntityRendererMixin {
         Vec3d itemFramePos = itemFrame.getPos().add(0.0F, yPos, 0.0F);
         BlockHitResult hitResult = MinecraftClient.getInstance().world.raycast(
                 new RaycastContext(cameraPos, itemFramePos, RaycastContext.ShapeType.VISUAL, RaycastContext.FluidHandling.NONE, itemFrame));
-        if (hitResult.getType() == HitResult.Type.BLOCK && distance > 400.0) {
+        if (hitResult.getType() == HitResult.Type.BLOCK && distance > 512.0F) {
             return; // Don't render if a block is obstructing the view from too far
         }
 
         String text = ClientDataHelper.getTimeString();
-        int textColor = Configuration.ITEM_FRAME_CLOCK_COLOR.getValue().getColor();
+        BlockPos pos = itemFrame.getBlockPos();
+        long offset = -itemFrame.getUuid().getLeastSignificantBits() % 1000;
+        int textColor = Configuration.ITEM_FRAME_CLOCK_COLOR.getValue().getColor(offset);
         boolean isSneaky = !itemFrame.isSneaky();
         float xPos = (float)-textRenderer.getWidth(text) / 2;
         matrixStack.push();
