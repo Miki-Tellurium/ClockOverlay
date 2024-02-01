@@ -2,6 +2,7 @@ package com.mikitellurium.clockoverlay.mixin;
 
 import com.mikitellurium.clockoverlay.config.Configuration;
 import com.mikitellurium.clockoverlay.util.ClientDataHelper;
+import com.mikitellurium.clockoverlay.util.ClockColor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -55,9 +56,9 @@ public class ItemFrameEntityRendererMixin {
         }
 
         String text = ClientDataHelper.getTimeString();
-        BlockPos pos = itemFrame.getBlockPos();
-        long offset = -itemFrame.getUuid().getLeastSignificantBits() % 1000;
-        int textColor = Configuration.ITEM_FRAME_CLOCK_COLOR.getValue().getColor(offset);
+        ClockColor clockColor = Configuration.ITEM_FRAME_CLOCK_COLOR.getValue();
+        long offset = clockColor == ClockColor.RAINBOW ? -itemFrame.getUuid().getLeastSignificantBits() % 1000 : 0;
+        int textColor = clockColor.getColor(offset);
         boolean isSneaky = !itemFrame.isSneaky();
         float xPos = (float)-textRenderer.getWidth(text) / 2;
         matrixStack.push();
