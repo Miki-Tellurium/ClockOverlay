@@ -34,7 +34,7 @@
 		"java": ">=17",
 		"fabric-api": "*",
 		"fabric-key-binding-api-v1": "*",
-		"telluriumforge": ">=1.0.0"
+		"telluriumforge": ">=1.1.0"
 	},
 	"suggests": {
 		"another-mod": "*"

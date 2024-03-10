@@ -31,7 +31,7 @@ dependencies {
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
-	modImplementation  'maven.modrinth:telluriumforge:1.0.0'
+	modImplementation  "maven.modrinth:telluriumforge:${project.telluriumforge_version}-fabric"
 }
 
 processResources {
