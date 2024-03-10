@@ -12,7 +12,7 @@ public class ClockOverlay implements ModInitializer {
 
 	private static final String MOD_ID = "clockoverlay";
     private static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	private static final SimpleRegistrationHelper registrationHelper = new SimpleRegistrationHelper(MOD_ID);
+	private static final SimpleRegistrationHelper registrationHelper = () -> MOD_ID;
 
 	@Override
 	public void onInitialize() {
@@ -26,8 +26,8 @@ public class ClockOverlay implements ModInitializer {
 		return LOGGER;
 	}
 
-	public static Identifier getModIdentifier(String id) {
-		return registrationHelper.getIdentifier(id);
+	public static Identifier getModIdentifier(String path) {
+		return registrationHelper.modId(path);
 	}
 
 }
