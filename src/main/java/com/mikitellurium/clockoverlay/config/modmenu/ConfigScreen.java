@@ -22,7 +22,7 @@ public class ConfigScreen extends GameOptionsScreen {
 
     @Override
     protected void init() {
-        this.list = new OptionListWidget(this.client, this.width, this.height, 32, this.height - 32);
+        this.list = new OptionListWidget(this.client, this.width, this.height - 64, 32, 25);
         this.list.addSingleOptionEntry(ModOptions.CLOCK_POSITION);
         this.list.addSingleOptionEntry(ModOptions.SHOW_CLOCK_WHEN);
         this.list.addSingleOptionEntry(ModOptions.SHOW_ITEM_FRAME_CLOCK);
@@ -45,10 +45,14 @@ public class ConfigScreen extends GameOptionsScreen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context, mouseX, mouseY, delta);
-        this.list.render(context, mouseX, mouseY, delta);
-        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 15, 16777215);
         super.render(context, mouseX, mouseY, delta);
+        this.list.render(context, mouseX, mouseY, delta);
+        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 5, 0xffffff);
+    }
+
+    @Override
+    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+        this.renderBackgroundTexture(context);
     }
 
 }
