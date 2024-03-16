@@ -59,7 +59,7 @@ public class ClientDataHelper {
     }
 
     public static boolean isDebugScreenOpen() {
-        return MinecraftClient.getInstance().options.debugEnabled;
+        return MinecraftClient.getInstance().inGameHud.getDebugHud().shouldShowDebugHud();
     }
 
     public static boolean isHudHidden() {
