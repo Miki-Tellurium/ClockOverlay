@@ -41,3 +41,4 @@ replay_*.log
 /gradle/
 /.github/
 /libs/
+/Changelog.txt
