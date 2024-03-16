@@ -9,7 +9,7 @@ import com.mikitellurium.telluriumforge.config.TelluriumConfig;
 
 public class Configuration {
 
-    public static final TelluriumConfig CLIENT_CONFIG = new TelluriumConfig("clockoverlay");
+    public static final TelluriumConfig CLIENT_CONFIG = new TelluriumConfig("clockoverlay", TelluriumConfig.Type.CLIENT);
 
     public static EnumConfigEntry<OverlayPos> CLOCK_POSITION;
     public static ConfigEntry<Boolean> CLOCK_HOLDING_REQUIRED;

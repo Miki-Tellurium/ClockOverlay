@@ -20,8 +20,6 @@ public enum ClockColor {
             DyeColor.PURPLE,
             DyeColor.PINK
     };
-    private static final int OFFSET_MAX_VALUE = Short.MAX_VALUE;
-
     private final ColorFunction colorGetter;
 
     ClockColor(ColorFunction colorGetter) {
