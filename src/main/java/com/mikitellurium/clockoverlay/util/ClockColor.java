@@ -1,31 +1,42 @@
 package com.mikitellurium.clockoverlay.util;
 
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.ColorHelper;
 
-import java.awt.*;
-import java.util.function.Function;
-
 public enum ClockColor {
-    WHITE((time) -> Formatting.WHITE.getColorValue()),
+    WHITE((time, offset, delta) -> Formatting.WHITE.getColorValue()),
     DAY_CYCLE(ClockColor::mapTimeToColor),
     RAINBOW(ClockColor::getRainbowColor);
 
-    private final Function<Long, Integer> colorGetter;
+    private static final DyeColor[] RAINBOW_COLORS = new DyeColor[] {
+            DyeColor.RED,
+            DyeColor.ORANGE,
+            DyeColor.YELLOW,
+            DyeColor.LIME,
+            DyeColor.LIGHT_BLUE,
+            DyeColor.BLUE,
+            DyeColor.MAGENTA,
+            DyeColor.PURPLE,
+            DyeColor.PINK
+    };
+    private static final int OFFSET_MAX_VALUE = Short.MAX_VALUE;
 
-    ClockColor(Function<Long, Integer> colorGetter) {
+    private final ColorFunction colorGetter;
+
+    ClockColor(ColorFunction colorGetter) {
         this.colorGetter = colorGetter;
     }
 
-    public int getColor() {
-        return this.getColor(0);
+    public int getColor(float delta) {
+        return this.getColor(0, delta);
     }
 
-    public int getColor(long offset) {
-        return colorGetter.apply(ClientDataHelper.getAdjustedTimeOfDay() + offset);
+    public int getColor(int offset, float delta) {
+        return colorGetter.apply(ClientDataHelper.getAdjustedTimeOfDay(), offset, delta);
     }
 
-    private static int mapTimeToColor(long time) {
+    private static int mapTimeToColor(long time, int offset, float delta) {
         int red, green, blue;
         float redMul = 1.0F;
         float greenMul = 1.0F;
@@ -89,11 +100,28 @@ public enum ClockColor {
         return ColorHelper.Argb.getArgb(255, red, green, blue);
     }
 
-    private static int getRainbowColor(long time) {
-        int value = (int)time % 1000;
-        int offset = (int) time % 1024;
-        float hue = (float) (value + offset) / 256 * 1000;
-        return Color.getHSBColor(hue / 1000, 0.7F, 0.8F).getRGB();
+    private static int getRainbowColor(long time, int offset, float delta) {
+        int speed = 50;
+        int value = (int) time / speed + offset;
+
+        int colorsNum = RAINBOW_COLORS.length;
+        int id = value % colorsNum;
+        int id2 = (value + 1) % colorsNum;
+        float multiplier = ((float)(time % speed) + delta) / (float) speed;
+        float[] rgb = RAINBOW_COLORS[id].getColorComponents();
+        float[] rgb1 = RAINBOW_COLORS[id2].getColorComponents();
+        float f = rgb[0] * (1.0f - multiplier) + rgb1[0] * multiplier;
+        float f1 = rgb[1] * (1.0f - multiplier) + rgb1[1] * multiplier;
+        float f2 = rgb[2] * (1.0f - multiplier) + rgb1[2] * multiplier;
+        float red = f * 255.0F;
+        float green = f1 * 255.0F;
+        float blue = f2 * 255.0F;
+        return ColorHelper.Argb.getArgb(255, (int) red, (int) green, (int) blue);
+    }
+
+    @FunctionalInterface
+    private interface ColorFunction {
+        int apply(long time, int offset, float delta);
     }
 
 }

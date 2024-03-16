@@ -57,8 +57,8 @@ public class ItemFrameEntityRendererMixin {
 
         String text = ClientDataHelper.getTimeString();
         ClockColor clockColor = Configuration.ITEM_FRAME_CLOCK_COLOR.getValue();
-        long offset = clockColor == ClockColor.RAINBOW ? -itemFrame.getUuid().getLeastSignificantBits() % 1000 : 0;
-        int textColor = clockColor.getColor(offset);
+        int offset = clockColor == ClockColor.RAINBOW ? itemFrame.getId() : 0;
+        int textColor = clockColor.getColor(offset, deltaTick);
         boolean isSneaky = !itemFrame.isSneaky();
         float xPos = (float)-textRenderer.getWidth(text) / 2;
         matrixStack.push();
