@@ -47,19 +47,11 @@ public class ItemFrameEntityRendererMixin {
         }
         float yPos = itemFrame.getNameLabelHeight() - 0.2F;
         if (itemFrame.getHeldItemStack().hasCustomName()) yPos += 0.3F;
-        Vec3d cameraPos = entityRenderer.camera.getPos();
-        Vec3d itemFramePos = itemFrame.getPos().add(0.0F, yPos, 0.0F);
-        BlockHitResult hitResult = MinecraftClient.getInstance().world.raycast(
-                new RaycastContext(cameraPos, itemFramePos, RaycastContext.ShapeType.VISUAL, RaycastContext.FluidHandling.NONE, itemFrame));
-        if (hitResult.getType() == HitResult.Type.BLOCK && distance > 512.0F) {
-            return; // Don't render if a block is obstructing the view from too far
-        }
 
         String text = ClientDataHelper.getTimeString();
         ClockColor clockColor = Configuration.ITEM_FRAME_CLOCK_COLOR.getValue();
         int offset = clockColor == ClockColor.RAINBOW ? itemFrame.getId() : 0;
         int textColor = clockColor.getColor(offset, deltaTick);
-        boolean isSneaky = !itemFrame.isSneaky();
         float xPos = (float)-textRenderer.getWidth(text) / 2;
         matrixStack.push();
 
@@ -72,11 +64,7 @@ public class ItemFrameEntityRendererMixin {
         int finalOpacity = (int)(opacity * 255.0f) << 24;
 
         textRenderer.draw(text, xPos, yPos, textColor, false, matrix4f, vertexConsumers,
-                isSneaky ? TextRenderer.TextLayerType.SEE_THROUGH : TextRenderer.TextLayerType.NORMAL, finalOpacity, light);
-        if (isSneaky) {
-            textRenderer.draw(text, xPos, yPos, textColor, false, matrix4f, vertexConsumers,
-                    TextRenderer.TextLayerType.NORMAL, 0, light);
-        }
+                TextRenderer.TextLayerType.POLYGON_OFFSET, finalOpacity, light);
 
         matrixStack.pop();
     }
