@@ -1,5 +1,6 @@
-package com.mikitellurium.clockoverlay.util;
+package com.mikitellurium.clockoverlay.clock;
 
+import com.mikitellurium.clockoverlay.util.ClientDataHelper;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.ColorHelper;

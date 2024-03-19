@@ -1,4 +1,4 @@
-package com.mikitellurium.clockoverlay.util;
+package com.mikitellurium.clockoverlay.clock;
 
 import com.mikitellurium.clockoverlay.config.Configuration;
 

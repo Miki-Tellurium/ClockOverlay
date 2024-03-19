@@ -2,8 +2,8 @@ package com.mikitellurium.clockoverlay.config.modmenu;
 
 import com.mikitellurium.clockoverlay.ClockOverlay;
 import com.mikitellurium.clockoverlay.config.Configuration;
-import com.mikitellurium.clockoverlay.util.ClockColor;
-import com.mikitellurium.clockoverlay.util.OverlayPos;
+import com.mikitellurium.clockoverlay.clock.ClockColor;
+import com.mikitellurium.clockoverlay.clock.OverlayPos;
 import com.mikitellurium.telluriumforge.option.BooleanConfigOption;
 import com.mikitellurium.telluriumforge.option.EnumConfigOption;
 import net.minecraft.client.option.SimpleOption;

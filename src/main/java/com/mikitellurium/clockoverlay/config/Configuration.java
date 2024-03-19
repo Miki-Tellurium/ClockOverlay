@@ -1,8 +1,8 @@
 package com.mikitellurium.clockoverlay.config;
 
 import com.mikitellurium.clockoverlay.ClockOverlay;
-import com.mikitellurium.clockoverlay.util.ClockColor;
-import com.mikitellurium.clockoverlay.util.OverlayPos;
+import com.mikitellurium.clockoverlay.clock.ClockColor;
+import com.mikitellurium.clockoverlay.clock.OverlayPos;
 import com.mikitellurium.telluriumforge.config.ConfigEntry;
 import com.mikitellurium.telluriumforge.config.EnumConfigEntry;
 import com.mikitellurium.telluriumforge.config.TelluriumConfig;
