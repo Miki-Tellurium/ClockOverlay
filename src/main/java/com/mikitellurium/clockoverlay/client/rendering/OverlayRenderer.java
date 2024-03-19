@@ -2,7 +2,7 @@ package com.mikitellurium.clockoverlay.client.rendering;
 
 import com.mikitellurium.clockoverlay.config.Configuration;
 import com.mikitellurium.clockoverlay.util.ClientDataHelper;
-import com.mikitellurium.clockoverlay.util.OverlayPos;
+import com.mikitellurium.clockoverlay.clock.OverlayPos;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;

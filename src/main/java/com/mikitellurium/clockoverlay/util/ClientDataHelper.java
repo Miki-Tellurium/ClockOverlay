@@ -1,5 +1,6 @@
 package com.mikitellurium.clockoverlay.util;
 
+import com.mikitellurium.clockoverlay.clock.TickedClock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -7,6 +8,11 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.dimension.DimensionTypes;
+
+import java.util.function.Supplier;
 
 public class ClientDataHelper {
 
@@ -51,11 +57,19 @@ public class ClientDataHelper {
     }
 
     public static String getTimeString() {
-        long time = getAdjustedTimeOfDay();
-        int seconds = (int)time / 20;
-        int clockHours = seconds / 50;
-        int clockMinutes = (int) Math.floor((time % 1000) / 16.66D);
-        return String.format("%02d:%02d", clockHours, clockMinutes == 60 ? 59 : clockMinutes);
+        if (shouldRenderBrokenClock()) {
+            return TickedClock.INSTANCE.getTimeString();
+        } else {
+            long time = getAdjustedTimeOfDay();
+            int seconds = (int) time / 20;
+            int clockHours = seconds / 50;
+            int clockMinutes = (int) Math.floor((time % 1000) / 16.66D);
+            return String.format("%02d:%02d", clockHours, clockMinutes == 60 ? 59 : clockMinutes);
+        }
+    }
+
+    private static boolean shouldRenderBrokenClock() {
+        return !MinecraftClient.getInstance().world.getDimension().natural();
     }
 
     public static boolean isDebugScreenOpen() {
