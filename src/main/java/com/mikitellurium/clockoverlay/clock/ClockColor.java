@@ -36,6 +36,9 @@ public enum ClockColor {
     }
 
     private static int mapTimeToColor(long time, int offset, float delta) {
+        if (ClientDataHelper.shouldClockBeBroken()) {
+            return ColorHelper.Argb.getArgb(255, 255, 255, 255);
+        }
         int red, green, blue;
         float redMul = 1.0F;
         float greenMul = 1.0F;

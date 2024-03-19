@@ -12,6 +12,7 @@ public class TickedClock {
     private final Supplier<String> randInt = () -> String.valueOf(random.nextInt(10));
     private int age = 0;
     private String randomTime;
+    private int randomDayTimeColor = -1;
 
     public void tick() {
         if (++age % 2 == 0) {
