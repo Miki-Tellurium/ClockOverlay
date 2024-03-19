@@ -62,7 +62,7 @@ public class ClientDataHelper {
         }
     }
 
-    private static boolean shouldClockBeBroken() {
+    public static boolean shouldClockBeBroken() {
         return !MinecraftClient.getInstance().world.getDimension().natural();
     }
 

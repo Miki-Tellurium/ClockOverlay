@@ -8,6 +8,9 @@
   "option.clockoverlay.show_item_frame_clock.true": "True",
   "option.clockoverlay.show_item_frame_clock.false": "False",
   "option.clockoverlay.clock_color": "Clock Color",
-  "option.clockoverlay.item_frame_clock_color": "Clock Color in Item Frame"
-
+  "option.clockoverlay.item_frame_clock_color": "Clock Color in Item Frame",
+  "option.clockoverlay.hide_broken_clock": "Hide Broken Clock",
+  "option.clockoverlay.hide_broken_clock.tooltip": "Hide the clock when inside a dimension where the clock doesn't work (like the nether)",
+  "option.clockoverlay.hide_broken_clock.true": "True",
+  "option.clockoverlay.hide_broken_clock.false": "False"
 }

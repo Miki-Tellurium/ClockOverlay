@@ -10,6 +10,8 @@ import net.minecraft.client.gui.widget.OptionListWidget;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
+import java.util.Arrays;
+
 public class ConfigScreen extends GameOptionsScreen {
 
     Screen parent;
@@ -23,11 +25,7 @@ public class ConfigScreen extends GameOptionsScreen {
     @Override
     protected void init() {
         this.list = new OptionListWidget(this.client, this.width, this.height - 64, 32, 25);
-        this.list.addSingleOptionEntry(ModOptions.CLOCK_POSITION);
-        this.list.addSingleOptionEntry(ModOptions.SHOW_CLOCK_WHEN);
-        this.list.addSingleOptionEntry(ModOptions.SHOW_ITEM_FRAME_CLOCK);
-        this.list.addSingleOptionEntry(ModOptions.CLOCK_COLOR);
-        this.list.addSingleOptionEntry(ModOptions.ITEM_FRAME_CLOCK_COLOR);
+        Arrays.stream(ModOptions.getOptions()).forEach(this.list::addSingleOptionEntry);
 
         this.addSelectableChild(this.list);
         this.addDrawableChild(

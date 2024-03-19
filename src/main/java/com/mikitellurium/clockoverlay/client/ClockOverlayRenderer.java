@@ -70,7 +70,9 @@ public class ClockOverlayRenderer {
     }
 
     private static boolean shouldShowOverlay() {
-        if (Configuration.CLOCK_HOLDING_REQUIRED.getValue()) {
+        if (Configuration.HIDE_BROKEN_CLOCK.getValue() && ClientDataHelper.shouldClockBeBroken()) {
+            return false;
+        } else if (Configuration.CLOCK_HOLDING_REQUIRED.getValue()) {
             return ClientDataHelper.playerIsHoldingClock();
         } else {
             return ClientDataHelper.playerHasClockInInventory();
