@@ -66,4 +66,8 @@ public class ClientDataHelper {
         return MinecraftClient.getInstance().options.hudHidden;
     }
 
+    public static boolean hasStatusBar() {
+        return MinecraftClient.getInstance().interactionManager.hasStatusBars();
+    }
+
 }

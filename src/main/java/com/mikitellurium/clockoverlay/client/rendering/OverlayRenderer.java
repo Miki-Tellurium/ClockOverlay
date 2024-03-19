@@ -43,6 +43,9 @@ public class OverlayRenderer {
                     case OVER_INVENTORY:
                         xPos = width / 2 - textWidth / 2;
                         yPos = height - 55;
+                        if (ClientDataHelper.hasStatusBar()) {
+                            yPos -= 14;
+                        }
                         break;
                     case TOP_LEFT:
                         xPos = 10;
