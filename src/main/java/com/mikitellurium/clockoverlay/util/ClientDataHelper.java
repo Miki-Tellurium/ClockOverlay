@@ -2,17 +2,11 @@ package com.mikitellurium.clockoverlay.util;
 
 import com.mikitellurium.clockoverlay.clock.TickedClock;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.dimension.DimensionTypes;
-
-import java.util.function.Supplier;
 
 public class ClientDataHelper {
 
@@ -57,7 +51,7 @@ public class ClientDataHelper {
     }
 
     public static String getTimeString() {
-        if (shouldRenderBrokenClock()) {
+        if (shouldClockBeBroken()) {
             return TickedClock.INSTANCE.getTimeString();
         } else {
             long time = getAdjustedTimeOfDay();
@@ -68,7 +62,7 @@ public class ClientDataHelper {
         }
     }
 
-    private static boolean shouldRenderBrokenClock() {
+    private static boolean shouldClockBeBroken() {
         return !MinecraftClient.getInstance().world.getDimension().natural();
     }
 
