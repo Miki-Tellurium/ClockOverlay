@@ -1,6 +1,6 @@
 package com.mikitellurium.clockoverlay.event;
 
-import com.mikitellurium.clockoverlay.client.rendering.OverlayRenderer;
+import com.mikitellurium.clockoverlay.client.ClockOverlayRenderer;
 import com.mikitellurium.clockoverlay.clock.TickedClock;
 import com.mikitellurium.telluriumforge.event.EventHelper;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -12,7 +12,7 @@ public class ModEvents {
 
     public static void register() {
         HELPER
-                .addListener(HudRenderCallback.EVENT, OverlayRenderer::renderOverlay)
+                .addListener(HudRenderCallback.EVENT, ClockOverlayRenderer::renderOverlay)
                 .addListener(ClientTickEvents.START_CLIENT_TICK, (event) -> TickedClock.INSTANCE.tick())
                 .registerAll();
     }

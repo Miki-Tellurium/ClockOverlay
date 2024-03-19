@@ -1,4 +1,4 @@
-package com.mikitellurium.clockoverlay.client.rendering;
+package com.mikitellurium.clockoverlay.client;
 
 import com.mikitellurium.clockoverlay.config.Configuration;
 import com.mikitellurium.clockoverlay.util.ClientDataHelper;
@@ -8,7 +8,7 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class OverlayRenderer {
+public class ClockOverlayRenderer {
 
     public static void renderOverlay(DrawContext context, float deltaTick) {
         if (ClientDataHelper.isHudHidden())
