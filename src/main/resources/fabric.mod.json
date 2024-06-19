@@ -19,7 +19,7 @@
           "com.mikitellurium.clockoverlay.ClockOverlay"
 		],
 		"client": [
-			"com.mikitellurium.clockoverlay.Client"
+          "com.mikitellurium.clockoverlay.ClientInit"
 		],
 		"modmenu": [
 			"com.mikitellurium.clockoverlay.config.modmenu.ModMenuImpl"
