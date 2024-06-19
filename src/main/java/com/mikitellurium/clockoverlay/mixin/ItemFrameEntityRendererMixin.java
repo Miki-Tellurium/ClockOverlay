@@ -48,7 +48,7 @@ public class ItemFrameEntityRendererMixin {
         if (vec3d == null) {
             return;
         }
-        float yPos = (float)vec3d.y - 0.2F;
+        float yPos = (float)vec3d.y + 0.3F;
         if (itemFrame.getHeldItemStack().get(DataComponentTypes.CUSTOM_NAME) != null) yPos += 0.3F;
 
         String text = ClientDataHelper.getTimeString();
