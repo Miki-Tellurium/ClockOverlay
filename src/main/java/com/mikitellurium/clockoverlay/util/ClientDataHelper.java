@@ -1,6 +1,6 @@
 package com.mikitellurium.clockoverlay.util;
 
-import com.mikitellurium.clockoverlay.clock.TickedClock;
+import com.mikitellurium.clockoverlay.clock.BrokenClock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -52,7 +52,7 @@ public class ClientDataHelper {
 
     public static String getTimeString() {
         if (shouldClockBeBroken()) {
-            return TickedClock.INSTANCE.getTimeString();
+            return BrokenClock.INSTANCE.getTimeString();
         } else {
             long time = getAdjustedTimeOfDay();
             int seconds = (int) time / 20;
