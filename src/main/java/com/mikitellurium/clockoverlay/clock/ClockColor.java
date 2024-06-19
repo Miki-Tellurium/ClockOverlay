@@ -1,11 +1,13 @@
 package com.mikitellurium.clockoverlay.clock;
 
 import com.mikitellurium.clockoverlay.util.ClientDataHelper;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.ColorHelper;
 
 public enum ClockColor {
+    @SuppressWarnings("ConstantConditions")
     WHITE((time, offset, delta) -> Formatting.WHITE.getColorValue()),
     DAY_CYCLE(ClockColor::mapTimeToColor),
     RAINBOW(ClockColor::getRainbowColor);
@@ -35,9 +37,10 @@ public enum ClockColor {
         return colorGetter.apply(ClientDataHelper.getAdjustedTimeOfDay(), offset, delta);
     }
 
+    @SuppressWarnings("ConstantConditions")
     private static int mapTimeToColor(long time, int offset, float delta) {
         if (ClientDataHelper.shouldClockBeBroken()) {
-            return ColorHelper.Argb.getArgb(255, 255, 255, 255);
+            return Formatting.WHITE.getColorValue();
         }
         int red, green, blue;
         float redMul = 1.0F;
@@ -108,17 +111,12 @@ public enum ClockColor {
 
         int colorsNum = RAINBOW_COLORS.length;
         int id = value % colorsNum;
-        int id2 = (value + 1) % colorsNum;
+        int id1 = (value + 1) % colorsNum;
         float multiplier = ((float)(time % speed) + delta) / (float) speed;
-        float[] rgb = RAINBOW_COLORS[id].getColorComponents();
-        float[] rgb1 = RAINBOW_COLORS[id2].getColorComponents();
-        float f = rgb[0] * (1.0f - multiplier) + rgb1[0] * multiplier;
-        float f1 = rgb[1] * (1.0f - multiplier) + rgb1[1] * multiplier;
-        float f2 = rgb[2] * (1.0f - multiplier) + rgb1[2] * multiplier;
-        float red = f * 255.0F;
-        float green = f1 * 255.0F;
-        float blue = f2 * 255.0F;
-        return ColorHelper.Argb.getArgb(255, (int) red, (int) green, (int) blue);
+        int rgb = SheepEntity.getRgbColor(RAINBOW_COLORS[id]);
+        int rgb1 = SheepEntity.getRgbColor(RAINBOW_COLORS[id1]);
+
+        return ColorHelper.Argb.lerp(multiplier, rgb, rgb1);
     }
 
     @FunctionalInterface

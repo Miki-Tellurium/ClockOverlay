@@ -30,7 +30,7 @@ public class ModOptions {
     public static final BooleanConfigOption HIDE_BROKEN_CLOCK = new BooleanConfigOption(
             ClockOverlay.getModIdentifier("hide_broken_clock"), Configuration.HIDE_BROKEN_CLOCK);
 
-    public static SimpleOption<?>[] getOptions() {
+    public static List<SimpleOption<?>> getOptions() {
         List<SimpleOption<?>> options = new ArrayList<>();
         for (Field field : ModOptions.class.getDeclaredFields()) {
             if (Modifier.isStatic(field.getModifiers()) && Modifier.isFinal(field.getModifiers())) {
@@ -41,7 +41,7 @@ public class ModOptions {
                 }
             }
         }
-        return options.toArray(SimpleOption[]::new);
+        return options;
     }
 
 }

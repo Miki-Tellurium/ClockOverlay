@@ -9,9 +9,13 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.ItemFrameEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAttachmentType;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -40,8 +44,12 @@ public class ItemFrameEntityRendererMixin {
         if (distance > 4096.0F || !Configuration.SHOW_ITEM_FRAME_CLOCK.getValue()) {
             return;
         }
-        float yPos = itemFrame.getNameLabelHeight() - 0.2F;
-        if (itemFrame.getHeldItemStack().hasCustomName()) yPos += 0.3F;
+        Vec3d vec3d = itemFrame.getAttachments().getPointNullable(EntityAttachmentType.NAME_TAG, 0, itemFrame.getYaw(deltaTick));
+        if (vec3d == null) {
+            return;
+        }
+        float yPos = (float)vec3d.y - 0.2F;
+        if (itemFrame.getHeldItemStack().get(DataComponentTypes.CUSTOM_NAME) != null) yPos += 0.3F;
 
         String text = ClientDataHelper.getTimeString();
         ClockColor clockColor = Configuration.ITEM_FRAME_CLOCK_COLOR.getValue();

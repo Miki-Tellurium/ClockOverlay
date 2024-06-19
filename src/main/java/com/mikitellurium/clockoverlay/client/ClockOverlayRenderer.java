@@ -6,11 +6,12 @@ import com.mikitellurium.clockoverlay.clock.OverlayPos;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class ClockOverlayRenderer {
 
-    public static void renderOverlay(DrawContext context, float deltaTick) {
+    public static void renderOverlay(DrawContext context, RenderTickCounter tickCounter) {
         if (ClientDataHelper.isHudHidden())
             return;
         OverlayPos pos = OverlayPos.getScreenPosConfig();
@@ -20,7 +21,7 @@ public class ClockOverlayRenderer {
         if (shouldShowOverlay()) {
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
             String text = ClientDataHelper.getTimeString();
-            int textColor = Configuration.CLOCK_COLOR.getValue().getColor(deltaTick);
+            int textColor = Configuration.CLOCK_COLOR.getValue().getColor(tickCounter.getTickDelta(false));
             int width = context.getScaledWindowWidth();
             int height = context.getScaledWindowHeight();
             int textWidth = textRenderer.getWidth(text);
