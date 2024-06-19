@@ -1,6 +1,7 @@
 package com.mikitellurium.clockoverlay.util;
 
 import com.mikitellurium.clockoverlay.clock.BrokenClock;
+import com.mikitellurium.clockoverlay.config.Configuration;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -58,7 +59,16 @@ public class ClientDataHelper {
             int seconds = (int) time / 20;
             int clockHours = seconds / 50;
             int clockMinutes = (int) Math.floor((time % 1000) / 16.66D);
-            return String.format("%02d:%02d", clockHours, clockMinutes == 60 ? 59 : clockMinutes);
+
+            String timeString;
+            boolean is24Hour = Configuration.CLOCK_FORMAT.getValue();
+            if (is24Hour) {
+                timeString = String.format("%02d:%02d", clockHours, clockMinutes == 60 ? 59 : clockMinutes);
+            } else {
+                String timeSuffix = time < 12000 ? "AM" : "PM";
+                timeString = String.format("%02d:%02d %s", clockHours % 12, clockMinutes == 60 ? 59 : clockMinutes, timeSuffix);
+            }
+            return timeString;
         }
     }
 

@@ -18,6 +18,9 @@ public class ModOptions {
 
     public static final EnumConfigOption<OverlayPos> CLOCK_POSITION = new EnumConfigOption<>(
             ClockOverlay.getModIdentifier("clock_position"), Configuration.CLOCK_POSITION);
+    public static final BooleanConfigOption CLOCK_FORMAT = new BooleanConfigOption(
+            ClockOverlay.getModIdentifier("clock_format"),
+            "24_hour", "12_hour", Configuration.CLOCK_FORMAT);
     public static final BooleanConfigOption SHOW_CLOCK_WHEN = new BooleanConfigOption(
             ClockOverlay.getModIdentifier("show_clock_when"),
             "held_in_hand", "in_inventory", Configuration.CLOCK_HOLDING_REQUIRED);

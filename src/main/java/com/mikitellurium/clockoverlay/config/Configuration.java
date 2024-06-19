@@ -12,6 +12,7 @@ public class Configuration {
     public static final TelluriumConfig CLIENT_CONFIG = new TelluriumConfig("clockoverlay", TelluriumConfig.Type.CLIENT);
 
     public static EnumConfigEntry<OverlayPos> CLOCK_POSITION;
+    public static ConfigEntry<Boolean> CLOCK_FORMAT;
     public static ConfigEntry<Boolean> CLOCK_HOLDING_REQUIRED;
     public static ConfigEntry<Boolean> SHOW_ITEM_FRAME_CLOCK;
     public static EnumConfigEntry<ClockColor> CLOCK_COLOR;
@@ -25,6 +26,11 @@ public class Configuration {
         CLOCK_POSITION = CLIENT_CONFIG.entryBuilder()
                 .define("clockPosition", OverlayPos.OVER_INVENTORY)
                 .comment("The position of the clock overlay on screen");
+
+        CLOCK_FORMAT = CLIENT_CONFIG.entryBuilder()
+                .define("clockFormat", true)
+                .comment("The format of the clock overlay, set to true for 24-hour clock")
+                .comment("and false for 12-hour clock");
 
         CLOCK_HOLDING_REQUIRED = CLIENT_CONFIG.entryBuilder()
                 .define("clockHoldingRequired", true)

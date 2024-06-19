@@ -1,5 +1,8 @@
 {
   "option.clockoverlay.clock_position": "Clock Position",
+  "option.clockoverlay.clock_format": "Clock Format",
+  "option.clockoverlay.clock_format.24_hour": "24-Hour",
+  "option.clockoverlay.clock_format.12_hour": "12-Hour",
   "option.clockoverlay.clock_position.tooltip": "The position of the clock overlay on screen",
   "option.clockoverlay.show_clock_when": "Show Clock When",
   "option.clockoverlay.show_clock_when.held_in_hand": "Held in Hand",
