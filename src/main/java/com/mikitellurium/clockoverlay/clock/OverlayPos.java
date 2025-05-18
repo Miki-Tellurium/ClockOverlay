@@ -1,4 +1,4 @@
-package com.mikitellurium.clockoverlay.util;
+package com.mikitellurium.clockoverlay.clock;
 
 import com.mikitellurium.clockoverlay.config.Configuration;
 
@@ -10,11 +10,11 @@ public enum OverlayPos {
     OVER_INVENTORY;
 
     public static void setScreenPosConfig(OverlayPos pos) {
-        Configuration.CLOCK_POSITION.setValue(pos);
+        Configuration.CLOCK_POSITION.set(pos);
     }
 
     public static OverlayPos getScreenPosConfig() {
-        return Configuration.CLOCK_POSITION.getValue();
+        return Configuration.CLOCK_POSITION.get();
     }
 
 }

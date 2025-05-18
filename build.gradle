@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 }
 
@@ -7,7 +7,7 @@ version = project.mod_version
 group = project.maven_group
 
 base {
-	archivesName = project.archives_base_name + "-fabric"
+	archivesName = project.archives_base_name
 }
 
 repositories {
@@ -20,25 +20,32 @@ repositories {
 		name = "terraformersmc maven"
 		url = "https://maven.terraformersmc.com"
 	}
+	flatDir {
+		dir "libs"
+	}
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	minecraft "com.mojang:minecraft:${minecraft_version}"
+	mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
-	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
 
-	modImplementation  "maven.modrinth:telluriumforge:${project.telluriumforge_version}-fabric"
+	//modImplementation "blank:telluriumforge:${telluriumforge_version}-1.20.1-fabric"
+	modImplementation  "maven.modrinth:telluriumforge:${telluriumforge_version}-1.20.1-fabric"
 }
 
 processResources {
 	inputs.property "version", project.version
+	inputs.property "mod_version", mod_version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": project.version,
+				"mod_version": mod_version,
+				"archives_base_name": archives_base_name
 	}
 }
 
@@ -47,6 +54,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
+	version = "${project.version}-${minecraft_version}-fabric"
 
 	withSourcesJar()
 
@@ -68,11 +76,7 @@ publishing {
 		}
 	}
 
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
+
 	}
 }

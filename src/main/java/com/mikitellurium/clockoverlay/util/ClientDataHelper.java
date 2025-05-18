@@ -1,7 +1,8 @@
 package com.mikitellurium.clockoverlay.util;
 
+import com.mikitellurium.clockoverlay.clock.BrokenClock;
+import com.mikitellurium.clockoverlay.config.Configuration;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerInventory;
@@ -9,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
 public class ClientDataHelper {
-
     public static boolean playerIsHoldingClock() {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (player == null) return false;
@@ -51,11 +51,34 @@ public class ClientDataHelper {
     }
 
     public static String getTimeString() {
-        long time = getAdjustedTimeOfDay();
-        int seconds = (int)time / 20;
-        int clockHours = seconds / 50;
-        int clockMinutes = (int) Math.floor((time % 1000) / 16.66D);
-        return String.format("%02d:%02d", clockHours, clockMinutes == 60 ? 59 : clockMinutes);
+        if (shouldClockBeBroken()) {
+            return BrokenClock.INSTANCE.getTimeString();
+        } else {
+            long time = getAdjustedTimeOfDay();
+            int seconds = (int) time / 20;
+            int clockHours = seconds / 50;
+            int clockMinutes = (int) Math.floor((time % 1000) / 16.66D);
+
+            String timeString;
+            boolean is24Hour = Configuration.CLOCK_FORMAT.get();
+            if (is24Hour) {
+                timeString = String.format("%02d:%02d", clockHours, clockMinutes == 60 ? 59 : clockMinutes);
+            } else {
+                String timeSuffix = time < 12000 ? "AM" : "PM";
+                timeString = String.format("%02d:%02d %s", clockHours % 12, clockMinutes == 60 ? 59 : clockMinutes, timeSuffix);
+            }
+            return timeString;
+        }
+    }
+
+    public static String getDayString() {
+        ClientWorld world = MinecraftClient.getInstance().world;
+        return String.format("Day %s", world == null ? "???" : world.getTimeOfDay() / 24000L);
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    public static boolean shouldClockBeBroken() {
+        return !MinecraftClient.getInstance().world.getDimension().natural();
     }
 
     public static boolean isDebugScreenOpen() {
@@ -66,4 +89,15 @@ public class ClientDataHelper {
         return MinecraftClient.getInstance().options.hudHidden;
     }
 
+    @SuppressWarnings("DataFlowIssue")
+    public static boolean hasStatusBar() {
+        return MinecraftClient.getInstance().interactionManager.hasStatusBars();
+    }
+
+    public static boolean playerIsSpectator() {
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        if (player == null) return false;
+
+        return player.isSpectator();
+    }
 }

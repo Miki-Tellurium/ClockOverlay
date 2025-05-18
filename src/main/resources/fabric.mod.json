@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
-	"id": "clockoverlay",
-	"version": "${version}",
+	"id": "${archives_base_name}",
+	"version": "${mod_version}",
 	"name": "Clock Overlay",
 	"description": "Use clocks to show the time in-game!",
 	"authors": [
@@ -19,7 +19,7 @@
           "com.mikitellurium.clockoverlay.ClockOverlay"
 		],
 		"client": [
-			"com.mikitellurium.clockoverlay.Client"
+			"com.mikitellurium.clockoverlay.ClientInit"
 		],
 		"modmenu": [
 			"com.mikitellurium.clockoverlay.config.modmenu.ModMenuImpl"
@@ -29,12 +29,12 @@
 		"clockoverlay.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.15.1",
+		"fabricloader": ">=0.16",
 		"minecraft": "~1.20",
 		"java": ">=17",
 		"fabric-api": "*",
 		"fabric-key-binding-api-v1": "*",
-		"telluriumforge": ">=1.1.0"
+		"telluriumforge": ">=1.4.0"
 	},
 	"suggests": {
 		"another-mod": "*"

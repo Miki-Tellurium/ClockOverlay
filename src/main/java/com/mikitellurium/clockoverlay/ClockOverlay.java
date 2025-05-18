@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ClockOverlay implements ModInitializer {
-
 	private static final String MOD_ID = "clockoverlay";
     private static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	private static final IdentifierProvider registrationHelper = () -> MOD_ID;
@@ -25,7 +24,6 @@ public class ClockOverlay implements ModInitializer {
 	}
 
 	public static Identifier getModIdentifier(String path) {
-		return registrationHelper.modIdentifier(path);
+		return registrationHelper.ofMod(path);
 	}
-
 }

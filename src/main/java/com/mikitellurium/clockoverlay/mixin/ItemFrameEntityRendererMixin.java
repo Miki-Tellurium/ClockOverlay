@@ -1,8 +1,8 @@
 package com.mikitellurium.clockoverlay.mixin;
 
+import com.mikitellurium.clockoverlay.clock.ClockColor;
 import com.mikitellurium.clockoverlay.config.Configuration;
 import com.mikitellurium.clockoverlay.util.ClientDataHelper;
-import com.mikitellurium.clockoverlay.util.ClockColor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -11,12 +11,7 @@ import net.minecraft.client.render.entity.ItemFrameEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.item.Items;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RaycastContext;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -26,15 +21,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemFrameEntityRenderer.class)
 public class ItemFrameEntityRendererMixin {
-
     @Inject(method = "render(Lnet/minecraft/entity/decoration/ItemFrameEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/ItemFrameEntityRenderer;getLight(Lnet/minecraft/entity/decoration/ItemFrameEntity;II)I",
                     shift = At.Shift.AFTER, ordinal = 1))
-    private void renderClockTimeLabel(ItemFrameEntity itemFrame, float yaw, float deltaTick, MatrixStack matrixStack,
-                                      VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
+    private void renderClockTimeLabel(ItemFrameEntity itemFrame, float yaw, float deltaTick, MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
         if (itemFrame.getHeldItemStack().isOf(Items.CLOCK)) {
-            renderTimeLabel(itemFrame, matrixStack, vertexConsumers, MinecraftClient.getInstance().getEntityRenderDispatcher(),
-                    MinecraftClient.getInstance().textRenderer, light, deltaTick);
+            renderTimeLabel(itemFrame, matrixStack, vertexConsumers, MinecraftClient.getInstance().getEntityRenderDispatcher(), MinecraftClient.getInstance().textRenderer, light, deltaTick);
         }
     }
 
@@ -42,17 +34,19 @@ public class ItemFrameEntityRendererMixin {
     private void renderTimeLabel(ItemFrameEntity itemFrame, MatrixStack matrixStack, VertexConsumerProvider vertexConsumers,
                                  EntityRenderDispatcher entityRenderer, TextRenderer textRenderer, int light, float deltaTick) {
         double distance = entityRenderer.getSquaredDistanceToCamera(itemFrame);
-        if (distance > 4096.0F || !Configuration.SHOW_ITEM_FRAME_CLOCK.getValue()) {
+        if (distance > 4096.0F || !Configuration.SHOW_ITEM_FRAME_CLOCK.get()) {
             return;
         }
         float yPos = itemFrame.getNameLabelHeight() - 0.2F;
         if (itemFrame.getHeldItemStack().hasCustomName()) yPos += 0.3F;
 
-        String text = ClientDataHelper.getTimeString();
-        ClockColor clockColor = Configuration.ITEM_FRAME_CLOCK_COLOR.getValue();
-        int offset = clockColor == ClockColor.RAINBOW ? itemFrame.getId() : 0;
-        int textColor = clockColor.getColor(offset, deltaTick);
-        float xPos = (float)-textRenderer.getWidth(text) / 2;
+        String timeText = ClientDataHelper.getTimeString();
+        String dayText = ClientDataHelper.getDayString();
+        ClockColor clockColor = Configuration.ITEM_FRAME_CLOCK_COLOR.get();
+        int colorOffset = clockColor == ClockColor.RAINBOW ? itemFrame.getId() : 0;
+        int textColor = clockColor.getColor(colorOffset, deltaTick);
+        float timeXPos = (float)-textRenderer.getWidth(timeText) / 2;
+        float dayXPos = (float)-textRenderer.getWidth(dayText) / 2;
         matrixStack.push();
 
         matrixStack.translate(0.0F, yPos, -0.25F);
@@ -63,10 +57,13 @@ public class ItemFrameEntityRendererMixin {
         float opacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25f);
         int finalOpacity = (int)(opacity * 255.0f) << 24;
 
-        textRenderer.draw(text, xPos, yPos, textColor, false, matrix4f, vertexConsumers,
+        if (Configuration.SHOW_ITEM_FRAME_CURRENT_DAY.get()) {
+            textRenderer.draw(dayText, dayXPos, yPos, textColor, false, matrix4f, vertexConsumers,
+                    TextRenderer.TextLayerType.POLYGON_OFFSET, finalOpacity, light);
+        }
+        textRenderer.draw(timeText, timeXPos, yPos + 10, textColor, false, matrix4f, vertexConsumers,
                 TextRenderer.TextLayerType.POLYGON_OFFSET, finalOpacity, light);
 
         matrixStack.pop();
     }
-
 }
